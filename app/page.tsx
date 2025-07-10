@@ -14,7 +14,10 @@ import {
 } from "@/components/ui/sidebar";
 import {LayoutDashboard, GraduationCap, Users, Settings, HelpCircle} from "lucide-react";
 import Image from "next/image";
-import {GeneralSection, StudentsSection, PatientsSection} from "@/components/dashboard";
+import GeneralSection from "@/components/dashboard/GeneralSection"
+import StudentsSection from "@/components/dashboard/StudentsSection"
+import PatientsSection from "@/components/dashboard/PatientsSection"
+
 
 export default function Home() {
 	const [activeSection, setActiveSection] = useState("general");
