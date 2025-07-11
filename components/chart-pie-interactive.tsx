@@ -21,20 +21,10 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-export function ChartPieInteractive() {
+export function ChartPieInteractive({appointmentData}: {appointmentData: {status: string; count: number; percentage: number}[]}) {
 	const id = "pie-interactive";
-	const [appointmentData, setAppointmentData] = React.useState<{status: string; count: number; percentage: number}[]>([]);
-	const [activeStatus, setActiveStatus] = React.useState("Completed");
 
-	React.useEffect(() => {
-		fetch("https://dentaldashboarddd-f2f4b0arc5gdh2ct.germanywestcentral-01.azurewebsites.net/api/appointments_status")
-			.then((res) => res.json())
-			.then((data) => {
-				setAppointmentData(data);
-				setActiveStatus(data[0]?.status || "Completed");
-			})
-			.catch((err) => console.error("Failed to fetch appointment data:", err));
-	}, []);
+	const [activeStatus, setActiveStatus] = React.useState("Completed");
 
 	const pieData = appointmentData.map((item) => ({
 		name: item.status,
