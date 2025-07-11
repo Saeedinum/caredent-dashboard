@@ -1,86 +1,46 @@
-"use client";
+import Aside from "@/components/Aside";
+import {ChartBarLabelCustom} from "@/components/chart-bar-label-custom";
+import {ChartPieInteractive} from "@/components/chart-pie-interactive";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {ArrowUp} from "lucide-react";
 
-import {useState} from "react";
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarFooter,
-	SidebarGroup,
-	SidebarGroupLabel,
-	SidebarHeader,
-	SidebarMenu,
-	SidebarMenuItem,
-	SidebarMenuButton,
-} from "@/components/ui/sidebar";
-import {LayoutDashboard, GraduationCap, Users, Settings, HelpCircle} from "lucide-react";
-import Image from "next/image";
-import GeneralSection from "@/components/dashboard/GeneralSection"
-import StudentsSection from "@/components/dashboard/StudentsSection"
-import PatientsSection from "@/components/dashboard/PatientsSection"
-
-
-export default function Home() {
-	const [activeSection, setActiveSection] = useState("general");
-
+export default function DashboardPage() {
 	return (
-		<>
-			<Sidebar>
-				<SidebarHeader>
-					<div className='flex items-center gap-2 px-2'>
-						<Image src='/logo.svg' alt='CareDent Logo' width={160} height={100} />
-					</div>
-				</SidebarHeader>
-				<SidebarContent>
-					<SidebarMenu>
-						<SidebarMenuItem>
-							<SidebarMenuButton isActive={activeSection === "general"} tooltip='Dashboard' onClick={() => setActiveSection("general")}>
-								<LayoutDashboard />
-								<span>General</span>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-						<SidebarMenuItem>
-							<SidebarMenuButton isActive={activeSection === "students"} tooltip='Students' onClick={() => setActiveSection("students")}>
-								<GraduationCap />
-								<span>Students</span>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-						<SidebarMenuItem>
-							<SidebarMenuButton isActive={activeSection === "patients"} tooltip='Patients' onClick={() => setActiveSection("patients")}>
-								<Users />
-								<span>Patients</span>
-							</SidebarMenuButton>
-						</SidebarMenuItem>
-					</SidebarMenu>
-
-					<SidebarGroup>
-						<SidebarGroupLabel>System</SidebarGroupLabel>
-						<SidebarMenu>
-							<SidebarMenuItem>
-								<SidebarMenuButton tooltip='Settings'>
-									<Settings />
-									<span>Settings</span>
-								</SidebarMenuButton>
-							</SidebarMenuItem>
-							<SidebarMenuItem>
-								<SidebarMenuButton tooltip='Help'>
-									<HelpCircle />
-									<span>Help</span>
-								</SidebarMenuButton>
-							</SidebarMenuItem>
-						</SidebarMenu>
-					</SidebarGroup>
-				</SidebarContent>
-				<SidebarFooter>
-					<div className='px-2 py-2 text-xs text-sidebar-foreground/70'>© 2023 CareDent Dashboard</div>
-				</SidebarFooter>
-			</Sidebar>
-			<main className='flex-1 p-6'>
-				<div className='container mx-auto'>
-					{activeSection === "general" && <GeneralSection />}
-					{activeSection === "students" && <StudentsSection />}
-					{activeSection === "patients" && <PatientsSection />}
+		<main className='min-h-screen bg-gray-50 justify-between flex p-20'>
+			<div className='flex flex-col items-center flex-1'>
+				{/* Top Section: Stats */}
+				<div className='grid grid-cols-1   md:grid-cols-3 gap-6 mb-8'>
+					{[
+						{title: "Doctors", value: 55, growth: "+11.01%"},
+						{title: "Patients", value: 70, growth: "+15.77%"},
+						{title: "Appointments", value: 120, growth: "+20.66%"},
+					].map(({title, value, growth}) => (
+						<Card key={title} className='bg-gradient-to-br w-[250px] from-blue-100 to-blue-300 shadow-md'>
+							<CardHeader>
+								<CardTitle className='text-xl font-bold text-blue-800'>{title}</CardTitle>
+							</CardHeader>
+							<CardContent className='flex gap-5'>
+								<div className='text-4xl font-extrabold text-blue-900'>{value}</div>
+								<div className='mt-2 flex items-center text-green-600 font-semibold'>
+									<ArrowUp className='w-4 h-4 mr-1' />
+									{growth}
+								</div>
+							</CardContent>
+						</Card>
+					))}
 				</div>
-			</main>
-		</>
+
+				{/* Middle Section: 2 Empty Boxes */}
+				<div className='w-full  gap-10 *:w-[500px] flex justify-center '>
+					<ChartPieInteractive />
+					<ChartBarLabelCustom />
+				</div>
+			</div>
+
+			{/* Aside Section: Right Side */}
+			<div className='flex   flex-col md:flex-row gap-6'>
+				<Aside />
+			</div>
+		</main>
 	);
 }
