@@ -6,6 +6,7 @@ import {ChartBarLabelCustom} from "@/components/chart-bar-label-custom";
 import {ChartPieInteractive} from "@/components/chart-pie-interactive";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {ArrowUp} from "lucide-react";
+import {ChartRadarTreatmentOrders} from "@/components/ChartRadarTreatmentOrders";
 
 export default function DashboardPage() {
 	const [appointmentData, setAppointmentData] = useState<{status: string; count: number; percentage: number}[]>([]);
@@ -20,14 +21,14 @@ export default function DashboardPage() {
 	const totalAppointments = appointmentData.reduce((sum, item) => sum + item.count, 0);
 
 	return (
-		<main className='min-h-screen bg-gray-50 justify-between flex p-20'>
+		<main className='min-h-screen bg-gray-50 justify-between flex p-10'>
 			<div className='flex flex-col items-center flex-1'>
 				{/* Top Section: Stats */}
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-8'>
 					{[
-						{title: "Doctors", value: 55, growth: "+11.01%"}, // no data from server 
-						{title: "Patients", value: 70, growth: "+15.77%"}, // no data from server 
-						{title: "Appointments", value: totalAppointments, growth: "+20.66%"}, // no data from server 
+						{title: "Doctors", value: 55, growth: "+11.01%"}, // no data from server
+						{title: "Patients", value: 70, growth: "+15.77%"}, // no data from server
+						{title: "Appointments", value: totalAppointments, growth: "+20.66%"}, // no data from server
 					].map(({title, value, growth}) => (
 						<Card key={title} className='bg-gradient-to-br w-[250px] from-blue-100 to-blue-300 shadow-md'>
 							<CardHeader>
@@ -45,9 +46,10 @@ export default function DashboardPage() {
 				</div>
 
 				{/* Middle Section: 2 Charts */}
-				<div className='w-full gap-10 *:w-[500px] flex justify-center'>
+				<div className='w-full gap-2 *:w-[500px] flex justify-center'>
 					<ChartPieInteractive appointmentData={appointmentData} />
 					<ChartBarLabelCustom />
+					<ChartRadarTreatmentOrders />
 				</div>
 			</div>
 

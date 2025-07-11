@@ -26,7 +26,7 @@ const Aside = () => {
 	}, []);
 
 	return (
-		<aside className='w-[400px] bg-white rounded-xl shadow-md p-4'>
+		<aside className='w-[300px] bg-white rounded-xl shadow-md p-4'>
 			<h3 className='font-semibold text-lg mb-3 text-gray-700'>Top Active Students</h3>
 			{loading ? (
 				<p>Loading...</p>
